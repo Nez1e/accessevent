@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AccessEvent{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="deco-corner" aria-hidden="true">
+    <span class="deco-dot deco-dot-1"></span>
+    <span class="deco-dot deco-dot-2"></span>
+    <span class="deco-dot deco-dot-3"></span>
+    <span class="deco-glow"></span>
+</div>
+    <header role="banner">
+        <nav aria-label="Главное меню">
+            <a href="{{ url_for('index_page') }}" class="nav-link">Главная</a>
+            <a href="{{ url_for('events_page') }}" class="nav-link">Мероприятия</a>
+            <a href="{{ url_for('login_page') }}" class="nav-link">Вход</a>
+            <a href="{{ url_for('register_page') }}" class="nav-link">Регистрация</a>
+        </nav>
+    </header>
+
+    <main role="main">
+        <div aria-live="polite" id="notifications" class="notifications"></div>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer role="contentinfo">
+        <p>AccessEvent — платформа инклюзивных мероприятий</p>
+        <p><small>Визуальные уведомления вместо звуковых — для всех пользователей</small></p>
+        <div class="flowers" aria-hidden="true">
+            <span class="flower flower-peony flower-1"></span>
+            <span class="flower flower-lily flower-2"></span>
+            <span class="flower flower-lavender flower-3"></span>
+            <span class="flower flower-peony flower-4"></span>
+            <span class="flower flower-bell flower-5"></span>
+            <span class="flower flower-lily flower-6"></span>
+            <span class="flower flower-lavender flower-7"></span>
+            <span class="flower flower-peony flower-8"></span>
+            <span class="grass grass-1"></span>
+            <span class="grass grass-2"></span>
+            <span class="grass grass-3"></span>
+            <span class="grass grass-4"></span>
+            <span class="grass grass-5"></span>
+            <span class="grass grass-6"></span>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
