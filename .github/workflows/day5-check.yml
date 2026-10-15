@@ -1,4 +1,3 @@
-@'
 name: Day5 Check
 on: push
 
@@ -23,5 +22,4 @@ jobs:
           test -f docs/assessment.md
       - name: Run tests
         run: pytest -v
-      - run: echo "PASS: Day 5 checks completed"
-'@ | Out-File -FilePath .github\workflows\day5-check.yml -Encoding utf8
+      - run: "echo 'PASS: Day 5 checks completed'"
