@@ -1578,3 +1578,972 @@ footer {
         transform: translateX(-50%) scale(0.7);
     }
 }
+.fireflies {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.firefly {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fce7f3 0%, #f0abfc 40%, #a855f7 100%);
+    box-shadow:
+        0 0 10px #f0abfc,
+        0 0 20px #a855f7,
+        0 0 30px rgba(168, 85, 247, 0.6),
+        0 0 40px rgba(236, 72, 153, 0.3);
+    opacity: 0.85;
+    will-change: transform;
+}
+
+/* Крылышки светлячка */
+.firefly::before,
+.firefly::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 7px;
+    background: radial-gradient(ellipse, rgba(240, 171, 252, 0.5) 0%, transparent 70%);
+    border-radius: 50%;
+    transform-origin: center;
+}
+
+.firefly::before {
+    left: -8px;
+    transform: translateY(-50%) rotate(-20deg);
+    animation: wing-flap 0.4s ease-in-out infinite;
+}
+
+.firefly::after {
+    right: -8px;
+    transform: translateY(-50%) rotate(20deg) scaleX(-1);
+    animation: wing-flap 0.4s ease-in-out infinite reverse;
+}
+
+@keyframes wing-flap {
+    0%, 100% { transform: translateY(-50%) rotate(-20deg) scaleY(1); }
+    50%      { transform: translateY(-50%) rotate(-35deg) scaleY(0.7); }
+}
+
+/* Мерцание и пульсация */
+.firefly {
+    animation: firefly-pulse 2s ease-in-out infinite;
+}
+
+@keyframes firefly-pulse {
+    0%, 100% { opacity: 0.5; filter: brightness(1); }
+    50%      { opacity: 1;   filter: brightness(1.4); }
+}
+
+/* ================================================================
+   12 СВЕТЛЯЧКОВ — У КАЖДОГО СВОЯ ТРАЕКТОРИЯ
+   ================================================================ */
+
+/* 1 — медленно плавает в левой части экрана */
+.firefly-1 {
+    top: 15%;
+    left: 10%;
+    animation: fly-1 22s ease-in-out infinite, firefly-pulse 2s ease-in-out infinite;
+}
+@keyframes fly-1 {
+    0%   { transform: translate(0, 0) scale(1); }
+    25%  { transform: translate(80px, 120px) scale(1.1); }
+    50%  { transform: translate(40px, 250px) scale(0.95); }
+    75%  { transform: translate(-40px, 130px) scale(1.05); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* 2 — летит справа вниз */
+.firefly-2 {
+    top: 25%;
+    right: 15%;
+    animation: fly-2 28s ease-in-out infinite, firefly-pulse 1.7s ease-in-out infinite;
+    animation-delay: -3s, -0.4s;
+}
+@keyframes fly-2 {
+    0%   { transform: translate(0, 0) scale(1); }
+    30%  { transform: translate(-120px, 80px) scale(1.15); }
+    60%  { transform: translate(-60px, 220px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* 3 — кружит в центре */
+.firefly-3 {
+    top: 50%;
+    left: 45%;
+    animation: fly-3 20s ease-in-out infinite, firefly-pulse 2.3s ease-in-out infinite;
+    animation-delay: -5s, -0.8s;
+}
+@keyframes fly-3 {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    25%  { transform: translate(80px, -60px) rotate(90deg); }
+    50%  { transform: translate(0, -120px) rotate(180deg); }
+    75%  { transform: translate(-80px, -60px) rotate(270deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+/* 4 — летит внизу слева */
+.firefly-4 {
+    bottom: 20%;
+    left: 8%;
+    animation: fly-4 26s ease-in-out infinite, firefly-pulse 1.9s ease-in-out infinite;
+    animation-delay: -2s, -1.2s;
+}
+@keyframes fly-4 {
+    0%   { transform: translate(0, 0); }
+    33%  { transform: translate(150px, -100px); }
+    66%  { transform: translate(80px, -180px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* 5 — мелкий светлячок у правого края */
+.firefly-5 {
+    top: 60%;
+    right: 5%;
+    transform: scale(0.7);
+    animation: fly-5 30s ease-in-out infinite, firefly-pulse 1.5s ease-in-out infinite;
+    animation-delay: -4s, -0.3s;
+}
+@keyframes fly-5 {
+    0%   { transform: translate(0, 0) scale(0.7); }
+    50%  { transform: translate(-200px, -150px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(0.7); }
+}
+
+/* 6 — большой светлячок в центре сверху */
+.firefly-6 {
+    top: 8%;
+    left: 50%;
+    animation: fly-6 24s ease-in-out infinite, firefly-pulse 2.1s ease-in-out infinite;
+    animation-delay: -6s, -0.6s;
+}
+@keyframes fly-6 {
+    0%   { transform: translate(0, 0) scale(1); }
+    25%  { transform: translate(-100px, 100px) scale(1.15); }
+    50%  { transform: translate(100px, 180px) scale(0.95); }
+    75%  { transform: translate(60px, 60px) scale(1.1); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* 7 — маленький, летает по кругу в правом нижнем углу */
+.firefly-7 {
+    bottom: 25%;
+    right: 20%;
+    transform: scale(0.85);
+    animation: fly-7 18s ease-in-out infinite, firefly-pulse 1.6s ease-in-out infinite;
+    animation-delay: -3.5s, -1s;
+}
+@keyframes fly-7 {
+    0%   { transform: translate(0, 0) scale(0.85); }
+    25%  { transform: translate(-60px, -80px) scale(1.05); }
+    50%  { transform: translate(-120px, -20px) scale(0.9); }
+    75%  { transform: translate(-60px, 60px) scale(1); }
+    100% { transform: translate(0, 0) scale(0.85); }
+}
+
+/* 8 — плывёт вдоль верхнего края */
+.firefly-8 {
+    top: 12%;
+    left: 30%;
+    animation: fly-8 32s linear infinite, firefly-pulse 2s ease-in-out infinite;
+    animation-delay: -1s, -0.5s;
+}
+@keyframes fly-8 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(200px, 60px); }
+    50%  { transform: translate(400px, -20px); }
+    75%  { transform: translate(200px, 100px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* 9 — в левом верхнем углу */
+.firefly-9 {
+    top: 20%;
+    left: 25%;
+    transform: scale(0.9);
+    animation: fly-9 21s ease-in-out infinite, firefly-pulse 2.4s ease-in-out infinite;
+    animation-delay: -2.5s, -0.7s;
+}
+@keyframes fly-9 {
+    0%   { transform: translate(0, 0) scale(0.9); }
+    33%  { transform: translate(-80px, 120px) scale(1.1); }
+    66%  { transform: translate(60px, 200px) scale(0.85); }
+    100% { transform: translate(0, 0) scale(0.9); }
+}
+
+/* 10 — маленький, в центре снизу */
+.firefly-10 {
+    bottom: 30%;
+    left: 55%;
+    transform: scale(0.75);
+    animation: fly-10 27s ease-in-out infinite, firefly-pulse 1.8s ease-in-out infinite;
+    animation-delay: -5.5s, -1.4s;
+}
+@keyframes fly-10 {
+    0%   { transform: translate(0, 0) scale(0.75); }
+    50%  { transform: translate(-180px, -100px) scale(0.95); }
+    100% { transform: translate(0, 0) scale(0.75); }
+}
+
+/* 11 — средний справа */
+.firefly-11 {
+    top: 40%;
+    right: 30%;
+    animation: fly-11 23s ease-in-out infinite, firefly-pulse 2.2s ease-in-out infinite;
+    animation-delay: -3.8s, -0.9s;
+}
+@keyframes fly-11 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(80px, 100px); }
+    50%  { transform: translate(160px, 0); }
+    75%  { transform: translate(80px, -100px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* 12 — маленький в левом нижнем */
+.firefly-12 {
+    bottom: 12%;
+    left: 30%;
+    transform: scale(0.7);
+    animation: fly-12 19s ease-in-out infinite, firefly-pulse 1.9s ease-in-out infinite;
+    animation-delay: -4.5s, -1.1s;
+}
+@keyframes fly-12 {
+    0%   { transform: translate(0, 0) scale(0.7); }
+    50%  { transform: translate(120px, -80px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(0.7); }
+}
+
+/* ================================================================
+   АДАПТИВНОСТЬ — на мобильных меньше светлячков
+   ================================================================ */
+
+@media (max-width: 768px) {
+    .firefly {
+        width: 6px;
+        height: 6px;
+        box-shadow:
+            0 0 8px #f0abfc,
+            0 0 15px #a855f7,
+            0 0 25px rgba(168, 85, 247, 0.5);
+    }
+    .firefly::before,
+    .firefly::after {
+        width: 7px;
+        height: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .firefly-3,
+    .firefly-5,
+    .firefly-8,
+    .firefly-10,
+    .firefly-12 {
+        display: none;
+    }
+    .firefly {
+        width: 5px;
+        height: 5px;
+        opacity: 0.7;
+    }
+}
+.big-peony {
+    position: absolute;
+    bottom: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transform-origin: bottom center;
+    animation: big-peony-sway 6s ease-in-out infinite;
+    z-index: 2;
+}
+
+/* Внутренние лепестки */
+.big-peony::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 40% 35%, #fce7f3 0%, transparent 30%),
+        radial-gradient(circle at 55% 45%, #fbcfe8 0%, transparent 35%),
+        radial-gradient(circle at 45% 55%, #f0abfc 0%, transparent 40%),
+        radial-gradient(circle at 60% 60%, #e9d5ff 0%, transparent 45%),
+        radial-gradient(circle at 35% 60%, #d8b4fe 0%, transparent 50%),
+        linear-gradient(135deg, #e9d5ff 0%, #c084fc 100%);
+    box-shadow:
+        inset -4px -6px 12px rgba(88, 28, 135, 0.3),
+        inset 4px 4px 10px rgba(252, 231, 243, 0.7);
+    animation: big-peony-inner-pulse 6s ease-in-out infinite;
+}
+
+/* Внешние лепестки */
+.big-peony::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 30%, #fce7f3 0%, transparent 25%),
+        radial-gradient(circle at 70% 35%, #f0abfc 0%, transparent 28%),
+        radial-gradient(circle at 30% 70%, #c084fc 0%, transparent 30%),
+        radial-gradient(circle at 70% 70%, #a855f7 0%, transparent 32%),
+        radial-gradient(circle at 50% 50%, #d8b4fe 0%, transparent 20%),
+        radial-gradient(circle at 50% 15%, #e9d5ff 0%, transparent 22%),
+        radial-gradient(circle at 50% 85%, #a855f7 0%, transparent 24%),
+        radial-gradient(circle at 15% 50%, #fbcfe8 0%, transparent 22%),
+        radial-gradient(circle at 85% 50%, #c084fc 0%, transparent 22%);
+    box-shadow:
+        0 0 25px rgba(240, 171, 252, 0.65),
+        0 0 40px rgba(168, 85, 247, 0.4),
+        inset -4px -6px 12px rgba(88, 28, 135, 0.25);
+    animation: big-peony-glow 4s ease-in-out infinite;
+}
+
+/* ================================================================
+   5 ПИОНОВ — РАЗНЫЕ РАЗМЕРЫ, ПОЗИЦИИ, РИТМЫ
+   ================================================================ */
+
+/* 1 — слева, средний */
+.big-peony-1 {
+    left: 8%;
+    bottom: 12px;
+    width: 65px;
+    height: 65px;
+    animation-delay: -1s;
+}
+
+/* 2 — ближе к центру, большой */
+.big-peony-2 {
+    left: 32%;
+    bottom: 18px;
+    width: 75px;
+    height: 75px;
+    animation-delay: -3s;
+}
+
+/* 3 — в центре, самый крупный */
+.big-peony-3 {
+    left: 50%;
+    bottom: 10px;
+    width: 85px;
+    height: 85px;
+    transform: translateX(-50%);
+    animation-delay: -0.5s;
+    z-index: 3;
+}
+
+/* 4 — правее центра, средний */
+.big-peony-4 {
+    right: 30%;
+    bottom: 15px;
+    width: 60px;
+    height: 60px;
+    animation-delay: -4s;
+}
+
+/* 5 — справа, крупный */
+.big-peony-5 {
+    right: 8%;
+    bottom: 20px;
+    width: 70px;
+    height: 70px;
+    animation-delay: -2s;
+}
+
+/* ================================================================
+   АНИМАЦИИ
+   ================================================================ */
+
+@keyframes big-peony-sway {
+    0%, 100% { transform: rotate(-2deg) translateY(0); }
+    25%      { transform: rotate(2deg) translateY(-2px); }
+    50%      { transform: rotate(3deg) translateY(-4px); }
+    75%      { transform: rotate(-1deg) translateY(-2px); }
+}
+
+@keyframes big-peony-inner-pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        filter: brightness(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.05) rotate(2deg);
+        filter: brightness(1.15);
+    }
+}
+
+@keyframes big-peony-glow {
+    0%, 100% {
+        transform: translate(-50%, -50%) rotate(0deg);
+        filter: brightness(1) drop-shadow(0 0 15px rgba(240, 171, 252, 0.5));
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(-3deg);
+        filter: brightness(1.2) drop-shadow(0 0 30px rgba(168, 85, 247, 0.7));
+    }
+}
+
+/* На мобильных — уменьшаем пионы */
+@media (max-width: 768px) {
+    .big-peony-1 { width: 50px; height: 50px; }
+    .big-peony-2 { width: 55px; height: 55px; }
+    .big-peony-3 { width: 60px; height: 60px; }
+    .big-peony-4 { width: 45px; height: 45px; }
+    .big-peony-5 { width: 55px; height: 55px; }
+}
+
+@media (max-width: 480px) {
+    .big-peony-1 { width: 35px; height: 35px; left: 5%; }
+    .big-peony-2 { display: none; }
+    .big-peony-3 { width: 45px; height: 45px; }
+    .big-peony-4 { display: none; }
+    .big-peony-5 { width: 40px; height: 40px; right: 5%; }
+}
+.bubbles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.15) 18%, transparent 22%),
+        radial-gradient(circle at 50% 50%, rgba(240, 171, 252, 0.25) 0%, rgba(168, 85, 247, 0.2) 50%, rgba(99, 102, 241, 0.15) 70%, transparent 100%),
+        radial-gradient(circle at 70% 75%, rgba(236, 72, 153, 0.25) 0%, transparent 45%);
+    box-shadow:
+        inset -4px -6px 12px rgba(255, 255, 255, 0.5),
+        inset 4px 6px 12px rgba(168, 85, 247, 0.35),
+        0 0 15px rgba(240, 171, 252, 0.5),
+        0 0 30px rgba(168, 85, 247, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    opacity: 0.75;
+    will-change: transform;
+    animation: bubble-float 20s ease-in-out infinite, bubble-pulse 3s ease-in-out infinite;
+}
+
+/* Радужный блик на пузыре */
+.bubble::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    width: 30%;
+    height: 25%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.3) 50%, transparent 80%);
+    filter: blur(1px);
+    transform: rotate(-25deg);
+}
+
+/* Второй блик — радужный */
+.bubble::after {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    right: 18%;
+    width: 25%;
+    height: 20%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(236, 72, 153, 0.5) 0%, rgba(168, 85, 247, 0.3) 50%, transparent 80%);
+    filter: blur(2px);
+    transform: rotate(15deg);
+}
+
+@keyframes bubble-pulse {
+    0%, 100% {
+        opacity: 0.6;
+        filter: brightness(1);
+    }
+    50% {
+        opacity: 0.95;
+        filter: brightness(1.25);
+    }
+}
+
+/* ================================================================
+   12 ПУЗЫРЕЙ — разные размеры, скорости, траектории
+   ================================================================ */
+
+.bubble-1 {
+    width: 55px; height: 55px;
+    top: 20%; left: 8%;
+    animation: bubble-float-1 24s ease-in-out infinite, bubble-pulse 3s ease-in-out infinite;
+    animation-delay: -2s, -0.5s;
+}
+@keyframes bubble-float-1 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(60px, 100px); }
+    50%  { transform: translate(30px, 220px); }
+    75%  { transform: translate(-40px, 120px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-2 {
+    width: 40px; height: 40px;
+    top: 30%; right: 12%;
+    animation: bubble-float-2 28s ease-in-out infinite, bubble-pulse 2.5s ease-in-out infinite;
+    animation-delay: -4s, -0.8s;
+}
+@keyframes bubble-float-2 {
+    0%   { transform: translate(0, 0); }
+    30%  { transform: translate(-100px, 80px); }
+    60%  { transform: translate(-50px, 240px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-3 {
+    width: 70px; height: 70px;
+    top: 45%; left: 40%;
+    animation: bubble-float-3 32s ease-in-out infinite, bubble-pulse 3.5s ease-in-out infinite;
+    animation-delay: -6s, -1s;
+}
+@keyframes bubble-float-3 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(80px, -60px); }
+    50%  { transform: translate(0, -140px); }
+    75%  { transform: translate(-80px, -60px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-4 {
+    width: 35px; height: 35px;
+    bottom: 25%; left: 12%;
+    animation: bubble-float-4 26s ease-in-out infinite, bubble-pulse 2.2s ease-in-out infinite;
+    animation-delay: -3s, -1.2s;
+}
+@keyframes bubble-float-4 {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(150px, -120px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-5 {
+    width: 50px; height: 50px;
+    top: 55%; right: 8%;
+    animation: bubble-float-5 30s ease-in-out infinite, bubble-pulse 3s ease-in-out infinite;
+    animation-delay: -8s, -0.3s;
+}
+@keyframes bubble-float-5 {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(-160px, -180px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-6 {
+    width: 60px; height: 60px;
+    top: 10%; left: 50%;
+    animation: bubble-float-6 26s ease-in-out infinite, bubble-pulse 2.8s ease-in-out infinite;
+    animation-delay: -5s, -0.6s;
+}
+@keyframes bubble-float-6 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(-90px, 80px); }
+    50%  { transform: translate(80px, 160px); }
+    75%  { transform: translate(50px, 60px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-7 {
+    width: 30px; height: 30px;
+    bottom: 30%; right: 25%;
+    animation: bubble-float-7 22s ease-in-out infinite, bubble-pulse 2.4s ease-in-out infinite;
+    animation-delay: -4.5s, -1s;
+}
+@keyframes bubble-float-7 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(-50px, -70px); }
+    50%  { transform: translate(-100px, -20px); }
+    75%  { transform: translate(-50px, 50px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-8 {
+    width: 45px; height: 45px;
+    top: 15%; left: 25%;
+    animation: bubble-float-8 34s ease-in-out infinite, bubble-pulse 3.2s ease-in-out infinite;
+    animation-delay: -1s, -0.5s;
+}
+@keyframes bubble-float-8 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(180px, 50px); }
+    50%  { transform: translate(360px, -20px); }
+    75%  { transform: translate(180px, 90px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-9 {
+    width: 38px; height: 38px;
+    top: 40%; left: 18%;
+    animation: bubble-float-9 25s ease-in-out infinite, bubble-pulse 2.6s ease-in-out infinite;
+    animation-delay: -2.5s, -0.7s;
+}
+@keyframes bubble-float-9 {
+    0%   { transform: translate(0, 0); }
+    33%  { transform: translate(-60px, 120px); }
+    66%  { transform: translate(50px, 180px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-10 {
+    width: 28px; height: 28px;
+    bottom: 35%; left: 55%;
+    animation: bubble-float-10 28s ease-in-out infinite, bubble-pulse 2.8s ease-in-out infinite;
+    animation-delay: -5.5s, -1.4s;
+}
+@keyframes bubble-float-10 {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(-180px, -100px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-11 {
+    width: 48px; height: 48px;
+    top: 60%; right: 30%;
+    animation: bubble-float-11 27s ease-in-out infinite, bubble-pulse 3s ease-in-out infinite;
+    animation-delay: -3.8s, -0.9s;
+}
+@keyframes bubble-float-11 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(60px, 100px); }
+    50%  { transform: translate(140px, 0); }
+    75%  { transform: translate(60px, -100px); }
+    100% { transform: translate(0, 0); }
+}
+
+.bubble-12 {
+    width: 33px; height: 33px;
+    bottom: 15%; left: 35%;
+    animation: bubble-float-12 23s ease-in-out infinite, bubble-pulse 2.5s ease-in-out infinite;
+    animation-delay: -4.5s, -1.1s;
+}
+@keyframes bubble-float-12 {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(120px, -90px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* ================================================================
+   БОЛЬШИЕ КРУПНЫЕ ПИОНЫ — 5 штук, в углах подвала
+   ================================================================ */
+
+footer {
+    overflow: hidden;
+}
+
+.flowers {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 130px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* -------- ОБЩИЙ СТЕБЕЛЬ -------- */
+.flower {
+    position: absolute;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to top,
+        rgba(76, 29, 149, 0.5),
+        rgba(139, 92, 246, 0.9),
+        rgba(168, 85, 247, 1));
+    border-radius: 2px;
+    transform-origin: bottom center;
+    animation: sway 5s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+}
+
+/* Листья на стебле */
+.flower::after {
+    content: '';
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    width: 14px;
+    height: 9px;
+    background: linear-gradient(135deg, #7c3aed, #6366f1, #a855f7);
+    border-radius: 0 100% 0 100%;
+    transform: translateX(-40%) rotate(-35deg);
+    box-shadow:
+        0 0 8px rgba(139, 92, 246, 0.5),
+        inset -1px -1px 3px rgba(88, 28, 135, 0.4);
+    animation: leaf-sway 5s ease-in-out infinite;
+    transform-origin: bottom right;
+}
+
+/* ================================================================
+   ПИОН — пышный многослойный бутон
+   ================================================================ */
+.flower-peony::before {
+    content: '';
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%, #fef3f8 0%, transparent 25%),
+        radial-gradient(circle at 55% 40%, #fce7f3 0%, transparent 30%),
+        radial-gradient(circle at 45% 55%, #fbcfe8 0%, transparent 35%),
+        radial-gradient(circle at 60% 60%, #f9a8d4 0%, transparent 40%),
+        radial-gradient(circle at 40% 65%, #f0abfc 0%, transparent 45%),
+        radial-gradient(circle at 65% 35%, #e9d5ff 0%, transparent 50%),
+        linear-gradient(135deg, #fce7f3 0%, #f0abfc 50%, #c084fc 100%);
+    box-shadow:
+        0 0 20px rgba(240, 171, 252, 0.7),
+        0 0 12px rgba(168, 85, 247, 0.5),
+        inset -3px -5px 10px rgba(88, 28, 135, 0.35),
+        inset 3px 3px 8px rgba(255, 255, 255, 0.7);
+    animation: bloom-peony 5s ease-in-out infinite;
+}
+
+/* ================================================================
+   ЛИЛИЯ — 6 острых лепестков
+   ================================================================ */
+.flower-lily::before {
+    content: '';
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background:
+        radial-gradient(ellipse at 50% 20%, #fef3f8 0%, transparent 30%),
+        radial-gradient(ellipse at 50% 50%, #f0abfc 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 80%, #c084fc 0%, transparent 50%),
+        linear-gradient(180deg, #fce7f3 0%, #e9d5ff 50%, #a855f7 100%);
+    box-shadow:
+        0 0 18px rgba(240, 171, 252, 0.8),
+        0 0 10px rgba(168, 85, 247, 0.6),
+        inset -2px -4px 8px rgba(88, 28, 135, 0.3),
+        inset 2px 2px 6px rgba(255, 255, 255, 0.8);
+    animation: bloom-lily 5s ease-in-out infinite;
+}
+
+/* ================================================================
+   ЛАВАНДА — колосок из мелких цветков
+   ================================================================ */
+.flower-lavender::before {
+    content: '';
+    position: absolute;
+    top: -34px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 38px;
+    border-radius: 50% 50% 40% 40%;
+    background:
+        radial-gradient(circle at 50% 8%, #fce7f3 0%, transparent 28%),
+        radial-gradient(circle at 30% 22%, #f0abfc 0%, transparent 32%),
+        radial-gradient(circle at 70% 22%, #e9d5ff 0%, transparent 32%),
+        radial-gradient(circle at 50% 38%, #c084fc 0%, transparent 32%),
+        radial-gradient(circle at 30% 55%, #a855f7 0%, transparent 35%),
+        radial-gradient(circle at 70% 55%, #8b5cf6 0%, transparent 35%),
+        radial-gradient(circle at 50% 72%, #c084fc 0%, transparent 38%),
+        radial-gradient(circle at 50% 88%, #8b5cf6 0%, transparent 40%),
+        linear-gradient(180deg, #fce7f3 0%, #c084fc 50%, #6d28d9 100%);
+    box-shadow:
+        0 0 18px rgba(168, 85, 247, 0.8),
+        0 0 8px rgba(240, 171, 252, 0.6),
+        inset -2px -3px 6px rgba(76, 29, 149, 0.5);
+    animation: bloom-lavender 5s ease-in-out infinite;
+}
+
+/* ================================================================
+   КОЛОКОЛЬЧИК — висячий бутон
+   ================================================================ */
+.flower-bell::before {
+    content: '';
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    width: 22px;
+    height: 20px;
+    border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+    background:
+        radial-gradient(circle at 30% 30%, #fef3f8 0%, transparent 35%),
+        radial-gradient(circle at 60% 40%, #fbcfe8 0%, transparent 40%),
+        linear-gradient(180deg, #fce7f3 0%, #f0abfc 40%, #c084fc 100%);
+    box-shadow:
+        0 0 16px rgba(236, 72, 153, 0.7),
+        0 0 8px rgba(168, 85, 247, 0.5),
+        inset -3px 2px 8px rgba(76, 29, 149, 0.4),
+        inset 2px -2px 6px rgba(255, 255, 255, 0.7);
+    animation: bloom-bell 5s ease-in-out infinite;
+}
+
+/* ================================================================
+   ПОЗИЦИИ И ВЫСОТЫ ЦВЕТОВ
+   ================================================================ */
+
+.flower-1 { left: 5%; height: 75px; animation-delay: 0s; }
+.flower-1::after { animation-delay: 0s; }
+
+.flower-2 { left: 14%; height: 55px; animation-delay: -1.1s; }
+.flower-2::after { animation-delay: -1.1s; }
+
+.flower-3 { left: 24%; height: 85px; animation-delay: -2.2s; }
+.flower-3::after { animation-delay: -2.2s; }
+
+.flower-4 { left: 35%; height: 65px; animation-delay: -0.6s; }
+.flower-4::after { animation-delay: -0.6s; }
+
+.flower-5 { left: 47%; height: 90px; animation-delay: -2.8s; }
+.flower-5::after { animation-delay: -2.8s; }
+
+.flower-6 { left: 58%; height: 60px; animation-delay: -1.6s; }
+.flower-6::after { animation-delay: -1.6s; }
+
+.flower-7 { left: 70%; height: 80px; animation-delay: -0.9s; }
+.flower-7::after { animation-delay: -0.9s; }
+
+.flower-8 { left: 80%; height: 70px; animation-delay: -2.4s; }
+.flower-8::after { animation-delay: -2.4s; }
+
+.flower-9 { left: 89%; height: 78px; animation-delay: -1.4s; }
+.flower-9::after { animation-delay: -1.4s; }
+
+.flower-10 { left: 96%; height: 62px; animation-delay: -3.1s; }
+.flower-10::after { animation-delay: -3.1s; }
+
+/* ================================================================
+   ТРАВИНКИ
+   ================================================================ */
+.grass {
+    position: absolute;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to top, transparent, rgba(139, 92, 246, 0.6));
+    border-radius: 2px;
+    transform-origin: bottom center;
+    animation: sway 3.5s ease-in-out infinite;
+}
+
+.grass-1 { left: 10%; height: 38px; animation-delay: -0.5s; }
+.grass-2 { left: 19%; height: 30px; animation-delay: -1.5s; }
+.grass-3 { left: 30%; height: 42px; animation-delay: -0.2s; }
+.grass-4 { left: 41%; height: 34px; animation-delay: -2.5s; }
+.grass-5 { left: 63%; height: 40px; animation-delay: -1s; }
+.grass-6 { left: 85%; height: 32px; animation-delay: -2s; }
+
+/* ================================================================
+   АНИМАЦИИ
+   ================================================================ */
+
+@keyframes sway {
+    0%, 100% { transform: rotate(-3deg) translateX(0); }
+    25%      { transform: rotate(2deg) translateX(1px); }
+    50%      { transform: rotate(4deg) translateX(2px); }
+    75%      { transform: rotate(-1deg) translateX(-1px); }
+}
+
+@keyframes bloom-peony {
+    0%, 100% {
+        transform: translateX(-50%) scale(1) rotate(-2deg);
+        filter: brightness(1) saturate(1.1);
+    }
+    50% {
+        transform: translateX(-50%) scale(1.12) rotate(2deg);
+        filter: brightness(1.18) saturate(1.35);
+    }
+}
+
+@keyframes bloom-lily {
+    0%, 100% {
+        transform: translateX(-50%) scale(1) rotate(-2deg);
+        filter: brightness(1);
+    }
+    50% {
+        transform: translateX(-50%) scale(1.1) rotate(2deg);
+        filter: brightness(1.25) drop-shadow(0 0 14px rgba(240, 171, 252, 1));
+    }
+}
+
+@keyframes bloom-lavender {
+    0%, 100% {
+        transform: translateX(-50%) scale(1) rotate(-1deg);
+        filter: brightness(1) hue-rotate(0deg);
+    }
+    33% {
+        transform: translateX(-50%) scale(1.06) rotate(1deg);
+        filter: brightness(1.2) hue-rotate(6deg);
+    }
+    66% {
+        transform: translateX(-50%) scale(1.02) rotate(-0.5deg);
+        filter: brightness(1.1) hue-rotate(-4deg);
+    }
+}
+
+@keyframes bloom-bell {
+    0%, 100% {
+        transform: translateX(-50%) rotate(180deg) rotate(-3deg);
+        filter: brightness(1);
+    }
+    50% {
+        transform: translateX(-50%) rotate(180deg) rotate(4deg);
+        filter: brightness(1.2) drop-shadow(0 0 12px rgba(236, 72, 153, 0.9));
+    }
+}
+
+@keyframes leaf-sway {
+    0%, 100% { transform: translateX(-40%) rotate(-35deg); }
+    50%      { transform: translateX(-40%) rotate(-15deg); }
+}
+
+/* ================================================================
+   АДАПТИВНОСТЬ
+   ================================================================ */
+
+@media (max-width: 768px) {
+    .flowers {
+        height: 90px;
+    }
+    .flower-1, .flower-2, .flower-3, .flower-4, .flower-5,
+    .flower-6, .flower-7, .flower-8, .flower-9, .flower-10 {
+        transform: scale(0.8);
+        transform-origin: bottom center;
+    }
+}
+
+@media (max-width: 480px) {
+    .flowers {
+        height: 60px;
+    }
+    .flower-2, .flower-4, .flower-6, .flower-8, .flower-10,
+    .grass-2, .grass-4, .grass-6 {
+        display: none;
+    }
+    .flower-peony::before,
+    .flower-lily::before,
+    .flower-lavender::before,
+    .flower-bell::before {
+        transform: translateX(-50%) scale(0.7);
+    }
+}
